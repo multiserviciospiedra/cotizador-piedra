@@ -72,9 +72,9 @@
 
                 <!-- Contact Fast Bar -->
                 <div class="hidden lg:flex items-center space-x-6 text-sm">
-                    <a href="tel:2213683292" class="flex items-center space-x-2 text-slate-300 hover:text-brand-accent transition">
+                    <a href="tel:9511466352" class="flex items-center space-x-2 text-slate-300 hover:text-brand-accent transition">
                         <i class="fa-solid fa-phone text-brand-accent"></i>
-                        <span>221 368 3292</span>
+                        <span>951 146 6352</span>
                     </a>
                     <a href="tel:9904135397" class="flex items-center space-x-2 text-slate-300 hover:text-brand-accent transition">
                         <i class="fa-solid fa-mobile-screen text-brand-accent"></i>
@@ -90,7 +90,7 @@
                 <div class="flex items-center space-x-3">
                     <button @click="scrollToCart()" class="relative inline-flex items-center px-4 py-2.5 rounded-lg text-sm font-semibold text-brand-navy bg-brand-accent hover:bg-yellow-400 transition duration-150 shadow-md">
                         <i class="fa-solid fa-calculator mr-2"></i>
-                        <span>Mi Presupuesto</span>
+                        <span>Mi Solicitud</span>
                         <span x-show="selectedServicesCount > 0" 
                               class="ml-2 bg-brand-navy text-white text-xs px-2 py-0.5 rounded-full" 
                               x-text="selectedServicesCount"></span>
@@ -108,19 +108,20 @@
                 Soluciones Integrales para tu Hogar o Empresa
             </h1>
             <p class="text-slate-300 max-w-2xl mx-auto text-sm md:text-base mb-6">
-                Selecciona los servicios que necesitas, cotiza en tiempo real con precios transparentes y agenda tu visita técnica en minutos.
+                Selecciona los servicios que necesitas y agenda tu visita técnica en minutos.
             </p>
             <div class="flex flex-wrap justify-center gap-2 md:gap-4 text-xs md:text-sm text-slate-300">
                 <span class="bg-slate-800/80 border border-slate-700 px-3 py-1 rounded-full flex items-center">
                     <i class="fa-solid fa-check text-brand-accent mr-1.5"></i> Personal Certificado
                 </span>
                 <span class="bg-slate-800/80 border border-slate-700 px-3 py-1 rounded-full flex items-center">
-                    <i class="fa-solid fa-check text-brand-accent mr-1.5"></i> Cotización Transparente
-                </span>
-                <span class="bg-slate-800/80 border border-slate-700 px-3 py-1 rounded-full flex items-center">
                     <i class="fa-solid fa-check text-brand-accent mr-1.5"></i> Atención Inmediata
                 </span>
             </div>
+            <!-- Subtítulo de servicio que no encuentre -->
+            <p class="mt-4 text-xs md:text-sm text-brand-accent font-medium bg-slate-900/60 inline-block px-4 py-1.5 rounded-lg border border-slate-700">
+                <i class="fa-solid fa-circle-info mr-1"></i> Servicio que no encuentre favor de mandar mensaje para cotizar
+            </p>
         </div>
     </section>
 
@@ -134,7 +135,7 @@
                         :class="activeTab === 'catalog' ? 'bg-white text-brand-navy shadow-sm font-bold' : 'text-slate-600 hover:text-slate-900 font-medium'"
                         class="w-1/2 py-2.5 px-3 rounded-lg text-sm text-center transition duration-150 flex items-center justify-center space-x-2">
                     <i class="fa-solid fa-list-check"></i>
-                    <span>1. Cotizar Servicios</span>
+                    <span>1. Ver Servicios</span>
                 </button>
                 <button @click="activeTab = 'booking'"
                         :class="activeTab === 'booking' ? 'bg-white text-brand-navy shadow-sm font-bold' : 'text-slate-600 hover:text-slate-900 font-medium'"
@@ -175,21 +176,20 @@
                         <template x-for="service in filteredServices" :key="service.id">
                             <div class="bg-white rounded-xl border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md transition duration-200 overflow-hidden flex flex-col justify-between">
                                 <div class="p-5">
-                                    <!-- Category Tag & Price Badge -->
+                                    <!-- Category Tag & Promotion Badge -->
                                     <div class="flex justify-between items-start mb-3">
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">
                                             <i :class="getCategoryIcon(service.categoryId)" class="mr-1.5 text-brand-accent"></i>
                                             <span x-text="getCategoryName(service.categoryId)"></span>
                                         </span>
                                         <div class="text-right">
-                                            <span class="text-xs text-slate-500 block">Est. Base</span>
-                                            <span class="text-lg font-extrabold text-brand-navy" x-text="'$' + service.basePrice.toLocaleString('es-MX') + ' MXN'"></span>
+                                            <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200 uppercase tracking-wide">PROMOCIÓN</span>
                                         </div>
                                     </div>
 
                                     <!-- Service Title & Description -->
                                     <h3 class="text-base font-bold text-slate-900 mb-1" x-text="service.name"></h3>
-                                    <p class="text-xs text-slate-600 mb-4 line-clamp-2" x-text="service.description"></p>
+                                    <p class="text-xs text-slate-600 mb-4 line-clamp-3" x-text="service.description"></p>
 
                                     <!-- Unit / Custom Options -->
                                     <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 mb-4 space-y-2 text-xs">
@@ -200,9 +200,9 @@
                                         <template x-if="service.hasOptions">
                                             <div class="pt-2 border-t border-slate-200">
                                                 <label class="block text-slate-700 font-medium mb-1">Tipo de Trabajo / Nivel:</label>
-                                                <select x-model="service.selectedOption" @change="updateServicePrice(service)" class="w-full text-xs bg-white border border-slate-300 rounded p-1.5 focus:ring-1 focus:ring-brand-blue outline-none">
+                                                <select x-model="service.selectedOption" class="w-full text-xs bg-white border border-slate-300 rounded p-1.5 focus:ring-1 focus:ring-brand-blue outline-none">
                                                     <template x-for="opt in service.options" :key="opt.name">
-                                                        <option :value="opt.price" x-text="opt.name + ' (+$' + opt.price + ')'"></option>
+                                                        <option :value="opt.name" x-text="opt.name"></option>
                                                     </template>
                                                 </select>
                                             </div>
@@ -244,12 +244,12 @@
                                 <i class="fa-solid fa-screwdriver-wrench text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-slate-900 text-sm md:text-base">¿Necesitas un trabajo a la medida o inspección previa?</h4>
-                                <p class="text-xs text-slate-600">Si tu proyecto no figura en el catálogo, puedes describirlo en el agendamiento y realizaremos un levantamiento en campo.</p>
+                                <h4 class="font-bold text-slate-900 text-sm md:text-base">¿Buscas un servicio que no encuentras?</h4>
+                                <p class="text-xs text-slate-600">Servicio que no encuentre favor de mandar mensaje para cotizar o descríbelo directamente al agendar.</p>
                             </div>
                         </div>
                         <button @click="activeTab = 'booking'" class="whitespace-nowrap px-4 py-2.5 bg-brand-navy text-white text-xs font-semibold rounded-lg hover:bg-slate-800 transition">
-                            Solicitar Diagnóstico
+                            Solicitar Cotización
                         </button>
                     </div>
                 </div>
@@ -273,7 +273,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-700 mb-1">Teléfono Móvil (WhatsApp) *</label>
-                                    <input type="tel" x-model="booking.phone" required placeholder="Ej. 2213683292"
+                                    <input type="tel" x-model="booking.phone" required placeholder="Ej. 9904135397"
                                            class="w-full text-sm px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:bg-white outline-none transition">
                                 </div>
                             </div>
@@ -324,24 +324,24 @@
 
                             <!-- Additional Details -->
                             <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Detalles o Notas Adicionales del Trabajo</label>
-                                <textarea x-model="booking.notes" rows="3" placeholder="Ej. El contacto del timbre no funciona, se requiere escalera de 5 metros, etc."
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Detalles o Servicios Adicionales (Servicio que no encuentre)</label>
+                                <textarea x-model="booking.notes" rows="3" placeholder="Ej. Necesito un servicio especial que no aparecía en el catálogo..."
                                           class="w-full text-sm px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:bg-white outline-none transition"></textarea>
                             </div>
 
                             <!-- Selected Items Summary inside form -->
                             <div class="border-t border-slate-200 pt-4 mt-6">
-                                <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Servicios Incluidos en la Cita</h3>
+                                <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Servicios Solicitados</h3>
                                 <div class="bg-slate-50 rounded-lg p-3 border border-slate-200 text-xs">
                                     <template x-if="selectedServices.length === 0">
-                                        <p class="text-slate-500 italic">No has seleccionado servicios del catálogo aún. Puedes solicitar una inspección general o volver a la pestaña de cotización.</p>
+                                        <p class="text-slate-500 italic">No has seleccionado servicios del catálogo aún. Puedes agregarlos o solicitar una cotización personalizada.</p>
                                     </template>
                                     <template x-if="selectedServices.length > 0">
                                         <ul class="divide-y divide-slate-200">
                                             <template x-for="item in selectedServices" :key="item.id">
                                                 <li class="py-1.5 flex justify-between items-center">
                                                     <span class="font-medium text-slate-800" x-text="item.name + ' (x' + item.quantity + ')'"></span>
-                                                    <span class="font-bold text-slate-900" x-text="'$' + (item.calculatedPrice * item.quantity).toLocaleString('es-MX')"></span>
+                                                    <span class="font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded">Promoción</span>
                                                 </li>
                                             </template>
                                         </ul>
@@ -376,7 +376,7 @@
                     <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
                         <h3 class="font-bold text-slate-900 flex items-center">
                             <i class="fa-solid fa-receipt text-brand-accent mr-2"></i>
-                            Resumen del Presupuesto
+                            Servicios Seleccionados
                         </h3>
                         <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium" x-text="selectedServicesCount + ' ítem(s)'"></span>
                     </div>
@@ -395,10 +395,10 @@
                             <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100 flex items-center justify-between text-xs">
                                 <div class="pr-2">
                                     <div class="font-semibold text-slate-800" x-text="item.name"></div>
-                                    <div class="text-[11px] text-slate-500" x-text="'Cant: ' + item.quantity + ' × $' + item.calculatedPrice.toLocaleString('es-MX')"></div>
+                                    <div class="text-[11px] text-slate-500" x-text="'Cantidad: ' + item.quantity"></div>
                                 </div>
                                 <div class="flex items-center space-x-2">
-                                    <span class="font-bold text-slate-900" x-text="'$' + (item.calculatedPrice * item.quantity).toLocaleString('es-MX')"></span>
+                                    <span class="font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Promoción</span>
                                     <button @click="removeServiceCompletely(item)" class="text-rose-500 hover:text-rose-700 p-1">
                                         <i class="fa-solid fa-xmark text-xs"></i>
                                     </button>
@@ -407,24 +407,8 @@
                         </template>
                     </div>
 
-                    <!-- Calculations Breakdown -->
-                    <div class="border-t border-slate-100 pt-3 space-y-2 text-xs">
-                        <div class="flex justify-between text-slate-600">
-                            <span>Subtotal Estimado:</span>
-                            <span class="font-semibold text-slate-800" x-text="'$' + subtotalPrice.toLocaleString('es-MX') + ' MXN'"></span>
-                        </div>
-                        <div class="flex justify-between text-slate-600">
-                            <span>Gastos de Visita / Diagnóstico:</span>
-                            <span class="font-semibold text-emerald-600" x-text="subtotalPrice > 0 ? '¡GRATIS con servicio!' : '$0 MXN'"></span>
-                        </div>
-                        <div class="border-t border-slate-200 pt-2 flex justify-between items-center">
-                            <span class="text-sm font-bold text-slate-900">Total Estimado:</span>
-                            <span class="text-xl font-black text-brand-navy" x-text="'$' + totalPrice.toLocaleString('es-MX') + ' MXN'"></span>
-                        </div>
-                    </div>
-
                     <p class="text-[10px] text-slate-400 mt-3 leading-tight italic text-center">
-                        * Precios orientativos. El costo final se ratifica tras la inspección física o confirmación de alcance.
+                        * Servicio que no encuentre favor de mandar mensaje para cotizar.
                     </p>
 
                     <!-- Next Step Button -->
@@ -448,8 +432,14 @@
                         <div class="flex items-start space-x-3">
                             <i class="fa-solid fa-phone text-brand-accent mt-0.5"></i>
                             <div>
-                                <p class="text-slate-400 text-[11px]">Teléfonos Directos:</p>
-                                <a href="tel:2213683292" class="font-bold hover:underline block text-white">221 368 3292</a>
+                                <p class="text-slate-400 text-[11px]">Número de Llamada:</p>
+                                <a href="tel:9511466352" class="font-bold hover:underline block text-white">951 146 6352</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-mobile-screen text-brand-accent mt-0.5"></i>
+                            <div>
+                                <p class="text-slate-400 text-[11px]">Número para WhatsApp:</p>
                                 <a href="tel:9904135397" class="font-bold hover:underline block text-white">990 413 5397</a>
                             </div>
                         </div>
@@ -463,10 +453,10 @@
                             </div>
                         </div>
                         <div class="flex items-start space-x-3">
-                            <i class="fa-solid fa-shield-halved text-brand-accent mt-0.5"></i>
+                            <i class="fa-solid fa-circle-question text-brand-accent mt-0.5"></i>
                             <div>
-                                <p class="text-slate-400 text-[11px]">Garantía de Servicio:</p>
-                                <p class="text-slate-200">Trabajos 100% garantizados por escrito.</p>
+                                <p class="text-slate-400 text-[11px]">¿No encuentras tu servicio?</p>
+                                <p class="text-slate-200 text-[11px]">Favor de mandar mensaje para cotizar.</p>
                             </div>
                         </div>
                     </div>
@@ -491,13 +481,13 @@
             <h3 class="text-xl font-extrabold text-slate-900">¡Solicitud Generada!</h3>
             
             <p class="text-xs text-slate-600 leading-relaxed">
-                Hemos preparado el detalle de tu cita y presupuesto. Si no se abrió la aplicación automáticamente, utiliza las opciones a continuación para contactar al equipo de <strong class="text-slate-800">Piedra Angular</strong>.
+                Hemos preparado el detalle de tu cita. Si no se abrió la aplicación automáticamente, utiliza las opciones a continuación para contactar al equipo de <strong class="text-slate-800">Piedra Angular</strong>.
             </p>
 
             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-left text-xs space-y-1">
                 <p><strong>Cliente:</strong> <span x-text="booking.name"></span></p>
                 <p><strong>Fecha solicitada:</strong> <span x-text="booking.date + ' (' + booking.timeSlot + ')'"></span></p>
-                <p><strong>Monto estimado:</strong> <span class="font-bold text-emerald-700" x-text="'$' + totalPrice.toLocaleString('es-MX') + ' MXN'"></span></p>
+                <p><strong>Estado:</strong> <span class="font-bold text-amber-600">Promoción / Cotización pendiente</span></p>
             </div>
 
             <div class="pt-2 space-y-2">
@@ -520,7 +510,7 @@
                 <span>PIEDRA ANGULAR MULTISERVICIOS</span>
             </div>
             <p class="max-w-xl mx-auto">
-                Especialistas en mantenimiento residencial, comercial, energía solar, electrónica y trámites legales de propiedad.
+                Servicio que no encuentre favor de mandar mensaje para cotizar. Especialistas en mantenimiento, tecnología, energía verde y construcción.
             </p>
             <p class="text-slate-500">
                 &copy; 2026 Piedra Angular Multiservicios. Todos los derechos reservados.
@@ -551,41 +541,49 @@
                 },
 
                 categories: [
-                    { id: 'maint', name: 'Mantenimiento Residencial', icon: 'fa-solid fa-house-chimney-crack' },
-                    { id: 'comm', name: 'Construcción Comercial', icon: 'fa-solid fa-building-user' },
-                    { id: 'elec', name: 'Electrónica & Diagnóstico', icon: 'fa-solid fa-microchip' },
-                    { id: 'solar', name: 'Energía Solar & EV', icon: 'fa-solid fa-solar-panel' },
+                    { id: 'maint', name: 'Mantenimiento & Hogar', icon: 'fa-solid fa-house-chimney-crack' },
+                    { id: 'tech', name: 'Tecnología & Computación', icon: 'fa-solid fa-laptop-code' },
+                    { id: 'comm', name: 'Construcción & Arquitectura', icon: 'fa-solid fa-building-user' },
+                    { id: 'elec', name: 'Electrónica & Seguridad', icon: 'fa-solid fa-microchip' },
+                    { id: 'solar', name: 'Energía Verde & EV', icon: 'fa-solid fa-solar-panel' },
                     { id: 'legal', name: 'Títulos & Trámites', icon: 'fa-solid fa-file-contract' }
                 ],
 
                 services: [
-                    // Mantenimiento Residencial
-                    { id: 1, categoryId: 'maint', name: 'Plomería General e Instalaciones', description: 'Reparación de fugas, instalación de grifería, tinacos y bombas de agua.', basePrice: 450, unit: 'Por servicio / revisión', quantity: 0, hasOptions: true, options: [{name: 'Reparación Menor', price: 0}, {name: 'Instalación de Hidroneumático', price: 850}, {name: 'Cambio de Tubería Completa', price: 1500}], selectedOption: 0, calculatedPrice: 450 },
-                    { id: 2, categoryId: 'maint', name: 'Electricidad Residencial', description: 'Cortocircuitos, instalación de contactos, lámparas y tableros.', basePrice: 400, unit: 'Por punto / circuito', quantity: 0, hasOptions: true, options: [{name: 'Punto de luz / contacto', price: 0}, {name: 'Balanceo de Cargas', price: 600}, {name: 'Cambio de Centro de Carga', price: 1200}], selectedOption: 0, calculatedPrice: 400 },
-                    { id: 3, categoryId: 'maint', name: 'Mantenimiento de Aire Acondicionado', description: 'Limpieza profunda, carga de gas refrigerante y diagnóstico de compresión.', basePrice: 650, unit: 'Por equipo Minisplit', quantity: 0, hasOptions: true, options: [{name: 'Mantenimiento Preventivo', price: 0}, {name: 'Carga de Gas Refrigerante', price: 450}, {name: 'Reparación Tarjeta / Fuga', price: 850}], selectedOption: 0, calculatedPrice: 650 },
-                    { id: 4, categoryId: 'maint', name: 'Instalación de Tablaroca y Muromuro', description: 'Muros divisores, plafones falsos y resane de muros con pintura.', basePrice: 350, unit: 'Metro cuadrado (m²)', quantity: 0, hasOptions: false, calculatedPrice: 350 },
+                    // Mantenimiento & Hogar
+                    { id: 1, categoryId: 'maint', name: 'Plomería General e Instalaciones', description: 'Reparación de fugas, instalación de grifería, tinacos y bombas de agua.', unit: 'Por servicio / revisión', quantity: 0, hasOptions: true, options: [{name: 'Reparación Menor'}, {name: 'Instalación de Hidroneumático'}, {name: 'Cambio de Tubería Completa'}], selectedOption: 'Reparación Menor' },
+                    { id: 2, categoryId: 'maint', name: 'Electricidad Residencial', description: 'Cortocircuitos, instalación de contactos, lámparas y tableros.', unit: 'Por punto / circuito', quantity: 0, hasOptions: true, options: [{name: 'Punto de luz / contacto'}, {name: 'Balanceo de Cargas'}, {name: 'Cambio de Centro de Carga'}], selectedOption: 'Punto de luz / contacto' },
+                    { id: 3, categoryId: 'maint', name: 'Mantenimiento de Aire Acondicionado', description: 'Limpieza profunda, carga de gas refrigerante y diagnóstico de compresión.', unit: 'Por equipo Minisplit', quantity: 0, hasOptions: true, options: [{name: 'Mantenimiento Preventivo'}, {name: 'Carga de Gas Refrigerante'}, {name: 'Reparación Tarjeta / Fuga'}], selectedOption: 'Mantenimiento Preventivo' },
+                    { id: 4, categoryId: 'maint', name: 'Instalación de Cortinas y Persianas', description: 'Instalación profesional de cortinas, persianas enrollables, verticales o romanas.', unit: 'Por pieza / ventana', quantity: 0, hasOptions: false },
+                    { id: 5, categoryId: 'maint', name: 'Limpieza de Pozos, Cisternas, Tinacos y Sarro', description: 'Lavado y desinfección profunda de cisternas, tinacos, pozos y eliminación de sarro en tuberías.', unit: 'Por servicio', quantity: 0, hasOptions: false },
+                    { id: 6, categoryId: 'maint', name: 'Reparación de Lavadoras y Secadoras', description: 'Diagnóstico y reparación de lavadoras y secadoras de todas las marcas.', unit: 'Por equipo', quantity: 0, hasOptions: false },
+                    { id: 7, categoryId: 'maint', name: 'Reparación de Electrodomésticos del Hogar e Industrial', description: 'Mantenimiento y reparación de línea blanca y equipos electrodomésticos comerciales e industriales.', unit: 'Por equipo', quantity: 0, hasOptions: false },
+                    { id: 8, categoryId: 'maint', name: 'Impermeabilización y Sellado de Goteras', description: 'Aplicación de impermeabilizante, sellado de juntas y solución definitiva a goteras.', unit: 'Metro cuadrado (m²)', quantity: 0, hasOptions: false },
+                    { id: 9, categoryId: 'maint', name: 'Mantenimiento a Bombas de Agua, Hidroneumáticos y Presurizadores', description: 'Revisión, mantenimiento preventivo y correctivo de sistemas hidroneumáticos y bombas.', unit: 'Por equipo', quantity: 0, hasOptions: false },
 
-                    // Construcción Comercial
-                    { id: 5, categoryId: 'comm', name: 'Ajustes y Remodelación Comercial', description: 'Adecuación de locales comerciales, tablaroca pesada, acabados e iluminación.', basePrice: 1200, unit: 'Por levantamiento / m²', quantity: 0, hasOptions: false, calculatedPrice: 1200 },
-                    { id: 6, categoryId: 'comm', name: 'Pintura Industrial y Fachadas', description: 'Aplicación de pintura epóxica, sellado e impermeabilización comercial.', basePrice: 85, unit: 'Metro cuadrado (m²)', quantity: 0, hasOptions: false, calculatedPrice: 85 },
+                    // Tecnología & Computación
+                    { id: 10, categoryId: 'tech', name: 'Reparación y Mantenimiento de Equipo de Cómputo y Telefonía', description: 'Mantenimiento preventivo, correctivo, cambio de pantallas, baterías y formateo de equipos de cómputo y celulares.', unit: 'Por equipo', quantity: 0, hasOptions: false },
+                    { id: 11, categoryId: 'tech', name: 'Venta de Equipos de Cómputo', description: 'Venta de computadoras de escritorio, laptops, accesorios y componentes de alta calidad.', unit: 'Por equipo / cotización', quantity: 0, hasOptions: false },
 
-                    // Diagnóstico Electrónico
-                    { id: 7, categoryId: 'elec', name: 'Diagnóstico de Sistemas Electrónicos', description: 'Revisión y reparación de tarjetas electrónicas, automatismos y portones.', basePrice: 500, unit: 'Por diagnóstico', quantity: 0, hasOptions: false, calculatedPrice: 500 },
-                    { id: 8, categoryId: 'elec', name: 'CCTV y Cámaras de Seguridad', description: 'Instalación y configuración de cámaras de seguridad IP o analógicas con monitoreo móvil.', basePrice: 800, unit: 'Por cámara / kit', quantity: 0, hasOptions: false, calculatedPrice: 800 },
+                    // Construcción & Arquitectura
+                    { id: 12, categoryId: 'comm', name: 'Creación de Planos Arquitectónicos y Remodelaciones', description: 'Diseño arquitectónico, planos estructurales, trámites de obra y remodelaciones integrales.', unit: 'Por proyecto / m²', quantity: 0, hasOptions: false },
+                    { id: 13, categoryId: 'comm', name: 'Instalación de Tablaroca y Muromuro', description: 'Muros divisores, plafones falsos y resane de muros con pintura.', unit: 'Metro cuadrado (m²)', quantity: 0, hasOptions: false },
+                    { id: 14, categoryId: 'comm', name: 'Ajustes y Remodelación Comercial', description: 'Adecuación de locales comerciales, acabados e iluminación.', unit: 'Por levantamiento / m²', quantity: 0, hasOptions: false },
+                    { id: 15, categoryId: 'comm', name: 'Pintura Industrial y Fachadas', description: 'Aplicación de pintura epóxica, sellado e impermeabilización comercial.', unit: 'Metro cuadrado (m²)', quantity: 0, hasOptions: false },
 
-                    // Energía Solar y EV
-                    { id: 9, categoryId: 'solar', name: 'Instalación de Paneles Solares', description: 'Diseño, montaje e interconexión de sistemas fotovoltaicos para ahorro de luz.', basePrice: 3500, unit: 'Por panel instalado', quantity: 0, hasOptions: false, calculatedPrice: 3500 },
-                    { id: 10, categoryId: 'solar', name: 'Instalación Cargador Vehículo Eléctrico (EV)', description: 'Instalación de cargador Wallbox con preparación eléctrica dedicada a 220V.', basePrice: 2800, unit: 'Por cargador', quantity: 0, hasOptions: false, calculatedPrice: 2800 },
+                    // Electrónica & Seguridad
+                    { id: 16, categoryId: 'elec', name: 'Diagnóstico de Sistemas Electrónicos', description: 'Revisión y reparación de tarjetas electrónicas, automatismos y portones.', unit: 'Por diagnóstico', quantity: 0, hasOptions: false },
+                    { id: 17, categoryId: 'elec', name: 'CCTV y Cámaras de Seguridad', description: 'Instalación y configuración de cámaras de seguridad IP o analógicas con monitoreo móvil.', unit: 'Por cámara / kit', quantity: 0, hasOptions: false },
 
-                    // Trámites de propiedad
-                    { id: 11, categoryId: 'legal', name: 'Asesoría y Trámites de Títulos de Propiedad', description: 'Gestión legal, regularización de predios, escrituración y levantamiento topográfico.', basePrice: 2500, unit: 'Por expediente / asesoría', quantity: 0, hasOptions: false, calculatedPrice: 2500 }
+                    // Energía Verde & EV
+                    { id: 18, categoryId: 'solar', name: 'Venta y Mantenimiento de Energía Verde (Calentadores Solares, Paneles y EV)', description: 'Venta, instalación y mantenimiento de calentadores solares, paneles fotovoltaicos y cargadores para vehículos eléctricos.', unit: 'Por sistema / equipo', quantity: 0, hasOptions: false },
+
+                    // Títulos & Trámites
+                    { id: 19, categoryId: 'legal', name: 'Asesoría y Trámites de Títulos de Propiedad', description: 'Gestión legal, regularización de predios, escrituración y levantamiento topográfico.', unit: 'Por expediente / asesoría', quantity: 0, hasOptions: false }
                 ],
 
                 initData() {
-                    // Initialize calculated prices
-                    this.services.forEach(s => {
-                        s.calculatedPrice = s.basePrice;
-                    });
+                    // Initialization logic
                 },
 
                 get filteredServices() {
@@ -601,14 +599,6 @@
                     return this.selectedServices.reduce((acc, curr) => acc + curr.quantity, 0);
                 },
 
-                get subtotalPrice() {
-                    return this.selectedServices.reduce((acc, curr) => acc + (curr.calculatedPrice * curr.quantity), 0);
-                },
-
-                get totalPrice() {
-                    return this.subtotalPrice;
-                },
-
                 getCategoryName(catId) {
                     const cat = this.categories.find(c => c.id === catId);
                     return cat ? cat.name : '';
@@ -619,14 +609,8 @@
                     return cat ? cat.icon : 'fa-solid fa-wrench';
                 },
 
-                updateServicePrice(service) {
-                    const optionPrice = parseInt(service.selectedOption || 0);
-                    service.calculatedPrice = service.basePrice + optionPrice;
-                },
-
                 incrementService(service) {
                     service.quantity++;
-                    this.updateServicePrice(service);
                 },
 
                 decrementService(service) {
@@ -641,7 +625,6 @@
                     } else {
                         service.quantity = 0;
                     }
-                    this.updateServicePrice(service);
                 },
 
                 removeServiceCompletely(service) {
@@ -656,7 +639,7 @@
                 },
 
                 buildMessageText() {
-                    let text = `*SOLICITUD DE CITA - PIEDRA ANGULAR MULTISERVICIOS*\n\n`;
+                    let text = `*SOLICITUD DE CITA / PROMOCIÓN - PIEDRA ANGULAR MULTISERVICIOS*\n\n`;
                     text += `*Datos del Cliente:*\n`;
                     text += `• Nombre: ${this.booking.name || 'No especificado'}\n`;
                     text += `• Teléfono: ${this.booking.phone || 'No especificado'}\n`;
@@ -666,18 +649,17 @@
 
                     text += `*Fecha Preferente:* ${this.booking.date || 'Por acordar'} (${this.booking.timeSlot || 'Por definir'})\n\n`;
 
-                    text += `*Servicios Cotizados:*\n`;
+                    text += `*Servicios Solicitados (En Promoción / Cotización):*\n`;
                     if (this.selectedServices.length === 0) {
-                        text += `• Inspección General / Evaluación Técnica\n`;
+                        text += `• Cotización general o servicio personalizado\n`;
                     } else {
                         this.selectedServices.forEach(item => {
-                            text += `• ${item.name} (x${item.quantity}) - $${(item.calculatedPrice * item.quantity).toLocaleString('es-MX')} MXN\n`;
+                            text += `• ${item.name} (x${item.quantity}) [Promoción]\n`;
                         });
                     }
 
-                    text += `\n*Total Estimado:* $${this.totalPrice.toLocaleString('es-MX')} MXN\n`;
                     if (this.booking.notes) {
-                        text += `\n*Notas adicionales:* ${this.booking.notes}\n`;
+                        text += `\n*Notas / Servicio adicional (No encontrado):* ${this.booking.notes}\n`;
                     }
 
                     return encodeURIComponent(text);
@@ -695,7 +677,7 @@
                     if (!this.validateBookingForm()) return;
 
                     const message = this.buildMessageText();
-                    const phone = '2213683292'; // Número principal de Piedra Angular
+                    const phone = '9904135397'; // Número de WhatsApp solicitado
                     this.generatedWhatsAppUrl = `https://wa.me/52${phone}?text=${message}`;
                     
                     window.open(this.generatedWhatsAppUrl, '_blank');
