@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piedra Angular Multiservicios - Cotizador y Citas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0f172a',
+                            blue: '#1e3a8a',
+                            accent: '#f59e0b',
+                            accentDark: '#d97706',
+                            gray: '#64748b',
+                            lightBg: '#f8fafc'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-full font-sans text-slate-800 bg-slate-50 flex flex-col antialiased selection:bg-brand-accent selection:text-white"
+      x-data="appData()" 
+      x-init="initData()">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="bg-brand-navy text-white sticky top-0 z-40 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Name -->
+                <div class="flex items-center space-x-3 cursor-pointer" @click="activeTab = 'catalog'">
+                    <div class="bg-gradient-to-tr from-brand-accent to-yellow-400 p-2.5 rounded-xl shadow-lg shadow-yellow-500/20 text-brand-navy">
+                        <i class="fa-solid fa-shapes text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight text-white block leading-tight">PIEDRA ANGULAR</span>
+                        <span class="text-xs font-medium text-brand-accent tracking-wider uppercase block">Multiservicios & Soluciones</span>
+                    </div>
+                </div>
+
+                <!-- Contact Fast Bar -->
+                <div class="hidden lg:flex items-center space-x-6 text-sm">
+                    <a href="tel:9904135397" class="flex items-center space-x-2 text-slate-300 hover:text-brand-accent transition">
+                        <i class="fa-solid fa-phone text-brand-accent"></i>
+                        <span>990 413 5397</span>
+                    </a>
+                    <a href="tel:9511466352" class="flex items-center space-x-2 text-slate-300 hover:text-brand-accent transition">
+                        <i class="fa-solid fa-mobile-screen text-brand-accent"></i>
+                        <span>951 146 6352</span>
+                    </a>
+                    <a href="mailto:piedra.angulartecnologia@gmail.com" class="flex items-center space-x-2 text-slate-300 hover:text-brand-accent transition">
+                        <i class="fa-solid fa-envelope text-brand-accent"></i>
+                        <span>piedra.angulartecnologia@gmail.com</span>
+                    </a>
+                </div>
+
+                <!-- CTA Quote Button -->
+                <div class="flex items-center space-x-3">
+                    <button @click="scrollToCart()" class="relative inline-flex items-center px-4 py-2.5 rounded-lg text-sm font-semibold text-brand-navy bg-brand-accent hover:bg-yellow-400 transition duration-150 shadow-md">
+                        <i class="fa-solid fa-clipboard-check mr-2"></i>
+                        <span>Mis Servicios Seleccionados</span>
+                        <span x-show="selectedServicesCount > 0" 
+                              class="ml-2 bg-brand-navy text-white text-xs px-2 py-0.5 rounded-full" 
+                              x-text="selectedServicesCount"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN HERO / BANNER -->
+    <section class="bg-gradient-to-r from-brand-navy via-slate-900 to-blue-950 text-white py-10 px-4 relative overflow-hidden border-b border-slate-800">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
+                Soluciones Integrales para tu Hogar o Empresa
+            </h1>
+            <p class="text-slate-300 max-w-2xl mx-auto text-sm md:text-base mb-3">
+                Selecciona los servicios que necesitas, arma tu lista de requerimientos y agenda tu visita técnica en minutos.
+            </p>
+            <!-- SUBTÍTULO DE PRECIOS NO FIJOS -->
+            <div class="max-w-2xl mx-auto mb-6">
+                <p class="inline-flex items-center text-xs md:text-sm font-medium text-amber-300 bg-amber-500/10 border border-amber-400/30
